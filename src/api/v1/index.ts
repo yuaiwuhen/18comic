@@ -97,8 +97,13 @@ export const getPopularThemes = async ()=> {
 export const getIndexData = async (): Promise<shareIndexData>=>{
   try {
     const data = await get('/')
+	console.log(1)
     const $ = cherrio.load(data)
+	const billboard = $("#billboard-modal")
+	console.log(billboard)
+	console.log(2)
     const modal = str2Modal($)
+	console.log(3)
     // let cards = $('.row.col-lg-10.col-md-9')
     let cards = $('.col-lg-10.col-md-9')
     let lists: shareIndexComicData[] = Array.from(cards).map(item=> {
@@ -110,6 +115,7 @@ export const getIndexData = async (): Promise<shareIndexData>=>{
       let cItem = $(item).find('.well.well-sm')
       let lists = Array.from(cItem).map(item=> str2Data(item))
       obj.lists = lists
+	  console.log(obj)
       return obj
     })
     const result: shareIndexData = {
@@ -118,6 +124,7 @@ export const getIndexData = async (): Promise<shareIndexData>=>{
     }
     return result
   } catch (error) {
+	  console.error(error)
     throw new Error(error)
   }
 }
@@ -364,7 +371,7 @@ const createCssLink = (src: string): string=> {
   return `<link rel="stylesheet" href="${ src }">`
 }
 
-const prefixImgUrl = ($: CheerioStatic)=> {
+const prefixImgUrl = ($: any)=> {
   $('img').each((index, ele)=> {
     const oldSrc = $(ele).attr("src") || ""
     $(ele).attr("src", createMirrorStaticFile(oldSrc))

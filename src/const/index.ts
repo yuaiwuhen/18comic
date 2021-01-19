@@ -271,12 +271,12 @@ export const defaultMirrorArr: mirrorItemInterface[] = [
   {
     title: "分流1",
     ext: "biz",
-    full_url: "https://18comic2.biz"
+    full_url: "https://jkfan.cn/comic"
   },
   {
     title: "分流2",
     ext: "biz",
-    full_url: "https://18comic3.biz"
+    full_url: "http://ccd.lizhanqi.top?src=http://hipotiroidismo.site"
   }
 ]
 

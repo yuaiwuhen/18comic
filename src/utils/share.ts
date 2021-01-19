@@ -44,7 +44,7 @@ export const comicTheme2Data = (str: string): themeInterface[] => {
   return obj
 }
 
-const comicPicGetPageMiddleware = (ele: Cheerio): number | null=> {
+const comicPicGetPageMiddleware = (ele: any): number | null=> {
   const href = ele.attr('href') || ""
   const qsIndex = href.lastIndexOf('=')
   if (qsIndex < 0) return null
@@ -87,9 +87,9 @@ export const comicPic2Data = (str: string): readerItemInterface => {
       if (!isNaN(active)) currPage = active
     }
     // console.log(a.html())
-    const isPrev = aText == '«'
-    const isNext = aText == '»'
-    const _page = comicPicGetPageMiddleware(a)
+    const isPrev:any = aText == '«'
+    const isNext:any = aText == '»'
+    const _page:any = comicPicGetPageMiddleware(a)
     if (isPrev) prevPage = _page
     if (isNext) {
       nextPage = _page
@@ -228,7 +228,9 @@ export const detail2Data = (str: string): shareComicFace => {
  * @returns shareIndexModal
  */
 export const str2Modal = ($: any): shareIndexModal => {
+	console.log(10)
   const billboard = $('#billboard-modal')
+  console.log(11)
   const title = billboard.find('.modal-title').text().trim()
   let body = billboard.find('.modal-body').html() || ""
   if (body) body = body.trim()
@@ -354,7 +356,7 @@ export const getCoverItemID = (src: string | undefined): string => {
  * @param  {Cheerio} ele
  * @returns string
  */
-export const pxComicImg = (ele: Cheerio): string => {
+export const pxComicImg = (ele: any): string => {
   let x = ele.attr('src') || ""
   let y = ele.attr('data-original') || ""
   return y ? y : x
@@ -423,7 +425,7 @@ export const rawMirror2DataLists = (str: string): mirrorItemInterface[] => {
 /**
  * 博客单个`item`转为数据
  */
-export const blogItem2Data = (ctx: CheerioElement): blogItemInterface=> {
+export const blogItem2Data = (ctx: any): blogItemInterface=> {
   const ele = cherrio(ctx)
   const h3 = ele.find('h3')
   const time = h3.next().text().trim()

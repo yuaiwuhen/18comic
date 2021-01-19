@@ -285,7 +285,7 @@ export default Vue.extend({
       if (!id) return
       const data = await getComicComment(id)
       try {
-        const webview = plus.webview.create("", commentWebviewID)
+        const webview = plus.webview.create(undefined, commentWebviewID)
         webview.loadData(data)
         webview.show(`slide-in-bottom` as any)
         /**

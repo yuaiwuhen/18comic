@@ -50,7 +50,7 @@ const getters: GetterTree<readerFace, any> = {
     const { episode } = data
     if (!episode) return null
     const current_id = ctx.current_id
-    let index = null
+    let index:any = null
     episode.forEach((item, i)=> {
       const flag = (item.id == current_id)
       if (flag) index = i

@@ -20,6 +20,9 @@
       </view>
     </view>
     <rich-text :nodes="_nodes" />
+	<view id='lineArea'>
+		
+	</view>
     <view v-if="!isLoading" :style="{ maxWidth: `100%`, overflow: 'hidden' }">
       <button @tap="handleChangePicPageAction" class="cu-btn block shadow-blur" :class="[ comicData.nextPage ? 'bg-pink lg' : 'bg-grey' ]">
         <text v-if="comicData.nextPage" class="span">{{ '加载下一页(不是下一话)' }}</text>
@@ -126,12 +129,45 @@ export default Vue.extend({
     _nodes() {
       try {
         let result = ''
+		var canvasList:any = document.getElementById('lineArea');
         this.comicData.pics.forEach(item=> {
-          result += `
-            <img src="${ item }" style="width:100%; height: auto" />
-            <br/>
-          `
+			var canvas = document.createElement('canvas');
+			canvasList.appendChild(canvas);
+			var img = new Image()
+			img.src = item
+			img.onload = function(){
+			   	console.log('width:'+img.width+',height:'+img.height);
+				var ctx:any = canvas.getContext('2d');
+				var s_w = img.width;//顯示尺寸
+				var w = img.width;//原始尺寸
+				var h:number = img.height;
+				
+				canvas.width = w;
+				canvas.height = h;		
+				canvas.style.width = "100%";
+				var num = 10;
+				var remainder:any = Math.floor(h % num);
+				var copyW = w;
+				for (var i = 0; i < num; i++) {
+					var copyH = Math.floor(h / num);
+					var py = copyH * (i);
+					var y = h - (copyH * (i + 1)) - remainder;
+		
+					if (i == 0) {
+						copyH = copyH + remainder;
+					} else {
+						py = py + remainder;
+					}
+					ctx.drawImage(img, 0, y, copyW, copyH, 0, py, copyW, copyH);
+				}
+			}
+			
+          // result += `
+            
+          //   <br/>
+          // `
         })
+		
         const u = hpjs(result)
         return u
       } catch (error) {
@@ -228,5 +264,11 @@ export default Vue.extend({
 }
 .message-box {
   height: 820rpx;
+}
+.dimage{
+	height: 700rpx!important;
+}
+canvas{
+	margin-top:10rpx;
 }
 </style>

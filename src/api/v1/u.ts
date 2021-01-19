@@ -2,7 +2,7 @@ import { get } from '@/utils/axios'
 import cheerio from 'cheerio'
 import { createMirrorStaticFile } from '@/utils/mirror'
 
-const profile2Number = (ele: Cheerio): number=> {
+const profile2Number = (ele: any): number=> {
   let _n = ele.find('span').text().trim()
   let _result = Number.parseInt(_n)
   if (isNaN(_result)) {

@@ -202,7 +202,7 @@ export default Vue.extend({
           plus.nativeUI.alert(updateIsLastVersion)
           break;
         case githubReleaseStatus.old:
-          const webview = plus.webview.create("", updateWebviewID)
+          const webview = plus.webview.create(undefined, updateWebviewID)
           webview.show()
           setTimeout(()=> {
             webview.loadData(body)
