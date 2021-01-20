@@ -65,6 +65,8 @@ export const comicPic2Data = (str: string): readerItemInterface => {
     let id = cherrio(item).attr('id')
     if (id?.endsWith('.jpg')) return item
   })
+
+  var need_canvas = 0;
   let Rx = r.map(item => {
     const ele = cherrio(item).find('img[data-page]')
     return pxComicImg(ele)
@@ -103,7 +105,8 @@ export const comicPic2Data = (str: string): readerItemInterface => {
     currPage,
     nextPage,
     prevPage,
-    pics: Rx
+    pics: Rx,
+	needCanvas:need_canvas
   }
   // console.log('x: ', x);
   return x

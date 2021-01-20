@@ -53,6 +53,7 @@ export default Vue.extend({
         currPage: null,
         nextPage: null,
         prevPage: null,
+		needCanvas: 0,
       },
       isLoading: false,
       scrollTop: 0,
@@ -129,14 +130,16 @@ export default Vue.extend({
     _nodes() {
       try {
         let result = ''
-		var canvasList:any = document.getElementById('lineArea');
-        this.comicData.pics.forEach(item=> {
+		console.log('canvas:',this.comicData.needCanvas)
+		if(this.comicData.needCanvas){
+			var canvasList:any = document.getElementById('lineArea');
+			this.comicData.pics.forEach(item=> {
 			var canvas = document.createElement('canvas');
 			canvasList.appendChild(canvas);
 			var img = new Image()
 			img.src = item
 			img.onload = function(){
-			   	console.log('width:'+img.width+',height:'+img.height);
+				// console.log('width:'+img.width+',height:'+img.height);
 				var ctx:any = canvas.getContext('2d');
 				var s_w = img.width;//顯示尺寸
 				var w = img.width;//原始尺寸
@@ -162,11 +165,20 @@ export default Vue.extend({
 				}
 			}
 			
-          // result += `
-            
-          //   <br/>
-          // `
-        })
+		  // result += `
+			
+		  //   <br/>
+		  // `
+		})
+		}else{
+			this.comicData.pics.forEach(item=> {
+			result += `
+				<img src="${ item }" style="width:100%"/>
+			   <br/>
+			 `
+			 })
+		}
+        
 		
         const u = hpjs(result)
         return u
@@ -201,6 +213,7 @@ export default Vue.extend({
         currPage: null,
         nextPage: null,
         prevPage: null,
+		needCanvas:0,
       }
     },
     async getData(id: string | number, page: number | string = 1) {
@@ -214,6 +227,7 @@ export default Vue.extend({
       this.comicData.nextPage = data.nextPage
       this.comicData.prevPage = data.prevPage
       this.comicData.currPage = data.currPage
+	  this.comicData.needCanvas = data.needCanvas
       let resultImgs = data.pics
       if (page > 1) resultImgs = [ ...oldImgs, ...resultImgs ]
       // console.log('resultImgs: ', resultImgs);

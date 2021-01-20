@@ -245,6 +245,10 @@ export interface readerItemInterface {
    * 图片
    */
   pics: string[]
+  /**
+   * 是否需要转为canvas
+   */
+  needCanvas: number
 }
 
 /**

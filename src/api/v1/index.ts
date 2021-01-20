@@ -53,7 +53,12 @@ export const getComicPic = async (id: number | string, page: number | string = 1
     // if (!data) throw new Error("接口获取错误")
     const apiMerge = `/photo/${ id }/?read_mode=read-by-full&page=${ page }`
     const data = await get(apiMerge)
-    return comicPic2Data(data as string)
+	let returnData = comicPic2Data(data as string)
+	if(id>220980){
+		returnData.needCanvas = 1;
+	}
+	
+    return returnData
   } catch (error) {
     throw new Error(error)
   }
@@ -97,13 +102,9 @@ export const getPopularThemes = async ()=> {
 export const getIndexData = async (): Promise<shareIndexData>=>{
   try {
     const data = await get('/')
-	console.log(1)
     const $ = cherrio.load(data)
 	const billboard = $("#billboard-modal")
-	console.log(billboard)
-	console.log(2)
     const modal = str2Modal($)
-	console.log(3)
     // let cards = $('.row.col-lg-10.col-md-9')
     let cards = $('.col-lg-10.col-md-9')
     let lists: shareIndexComicData[] = Array.from(cards).map(item=> {
@@ -115,7 +116,6 @@ export const getIndexData = async (): Promise<shareIndexData>=>{
       let cItem = $(item).find('.well.well-sm')
       let lists = Array.from(cItem).map(item=> str2Data(item))
       obj.lists = lists
-	  console.log(obj)
       return obj
     })
     const result: shareIndexData = {
