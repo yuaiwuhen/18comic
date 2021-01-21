@@ -276,7 +276,7 @@ export const defaultMirrorArr: mirrorItemInterface[] = [
   {
     title: "分流2",
     ext: "biz",
-    full_url: "http://ccd.lizhanqi.top?src=http://hipotiroidismo.site"
+    full_url: "https://jkfan.cn/api/proxy?url=http://hipotiroidismo.site"
   }
 ]
 
